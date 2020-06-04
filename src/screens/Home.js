@@ -84,6 +84,7 @@ export const Home = (props) => {
           if (a.id == state.todoId) {
             debugger;
             returnValue.task_msg = state.todoName;
+            returnValue.task_date = selectedDate;
           }
           return returnValue;
         });
