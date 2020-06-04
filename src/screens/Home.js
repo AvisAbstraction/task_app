@@ -49,9 +49,10 @@ export const Home = (props) => {
       addTodoToggle: false,
       todoName: todo.task_msg,
       todoId: todo.id,
-      todoDate: todo.task_date,
+      todoDate: new Date(todo.task_date),
       todoTime: todo.task_time,
     });
+    setSelectedDate(todo.task_date);
   };
 
   const updateTodo = (e) => {
@@ -74,7 +75,8 @@ export const Home = (props) => {
       }
     )
       .then((data) => {
-        data && window.location.reload();
+        setState({ ...state, todoName: "", todoId: null });
+        setSelectedDate(new Date());
       })
       .catch((err) => {
         console.log(err, "error");
@@ -89,7 +91,7 @@ export const Home = (props) => {
       },
     })
       .then((data) => {
-        data && window.location.reload();
+        console.log(data);
       })
       .catch((err) => {
         console.log(err, "error");
@@ -122,7 +124,9 @@ export const Home = (props) => {
       }
     )
       .then((data) => {
-        data && window.location.reload();
+        debugger;
+        setState({ ...state, todoName: "", todoId: null });
+        setSelectedDate(new Date());
       })
       .catch((err) => {
         console.log(err);
@@ -171,6 +175,7 @@ export const Home = (props) => {
                       margin="dense"
                       label="Enter Task Name"
                       name="todoName"
+                      value={state.todoName}
                       onChange={(e) => handleChange(e)}
                     />
                   </Grid>
@@ -248,7 +253,7 @@ export const Home = (props) => {
                       format="dd/MM/yyyy"
                       inputVariant="outlined"
                       margin="dense"
-                      value={state.todoDate}
+                      value={new Date(selectedDate)}
                       name="task_date"
                       onChange={handleDateChange}
                       KeyboardButtonProps={{
@@ -264,8 +269,7 @@ export const Home = (props) => {
                       id="time-picker"
                       label="Time picker"
                       inputVariant="outlined"
-                      value={state.todoDate}
-                      value={selectedDate}
+                      value={new Date(selectedDate)}
                       onChange={handleDateChange}
                       KeyboardButtonProps={{
                         "aria-label": "change time",
