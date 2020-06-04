@@ -74,8 +74,20 @@ export const Home = (props) => {
         },
       }
     )
-      .then((data) => {
-        setState({ ...state, todoName: "", todoId: null });
+      .then((res) => {
+        // const updated_todo = state.todos.map((todo) => {
+        let array = state.todos;
+
+        let array2 = array.map((a) => {
+          var returnValue = { ...a };
+
+          if (a.id == state.todoId) {
+            debugger;
+            returnValue.task_msg = state.todoName;
+          }
+          return returnValue;
+        });
+        setState({ ...state, todos: array2, todoName: "" });
         setSelectedDate(new Date());
       })
       .catch((err) => {
@@ -91,6 +103,10 @@ export const Home = (props) => {
       },
     })
       .then((data) => {
+        const updatedTodos = state.todos.filter((todo) => {
+          return todo.id !== todoId;
+        });
+        setState({ ...state, todos: updatedTodos });
         console.log(data);
       })
       .catch((err) => {
@@ -123,15 +139,19 @@ export const Home = (props) => {
         },
       }
     )
-      .then((data) => {
-        debugger;
-        setState({ ...state, todoName: "", todoId: null });
+      .then((res) => {
+        setState({
+          ...state,
+          todos: [...state.todos, res.data.results],
+          todoName: "",
+        });
         setSelectedDate(new Date());
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   useEffect(() => {
     Axios.get(`${API_URL}/task/${LEAD_ID}`, {
       headers: {
@@ -160,7 +180,7 @@ export const Home = (props) => {
               color="secondary"
               variant="contained"
             >
-              Add
+              Toggle Fields
             </Button>
           </Grid>
           {state.addTodoToggle && (
