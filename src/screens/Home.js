@@ -174,7 +174,13 @@ export const Home = (props) => {
       <Navbar handleLogout={handleLogout} />
       <Container>
         <Grid container justify="center" style={{ paddingTop: 20 }}>
-          <Grid item xs={7} style={{ textAlign: "right", marginBottom: 20 }}>
+          <Grid
+            item
+            xs={12}
+            sm={10}
+            md={8}
+            style={{ textAlign: "right", marginBottom: 20 }}
+          >
             <Button
               type="submit"
               onClick={(e) => handleAddTodoToggle(e)}
@@ -185,7 +191,7 @@ export const Home = (props) => {
             </Button>
           </Grid>
           {state.addTodoToggle && (
-            <Grid item xs={7}>
+            <Grid item xs={12} sm={10} md={8}>
               <Grid container justify="center" spacing={2}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid item md={4} sm={12} xs={12}>
@@ -251,7 +257,7 @@ export const Home = (props) => {
             </Grid>
           )}
           {state.editTodoToggle && (
-            <Grid item xs={7}>
+            <Grid item xs={12} sm={10} md={8}>
               <Grid container justify="center" spacing={2}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid item md={4} sm={12} xs={12}>
@@ -312,7 +318,7 @@ export const Home = (props) => {
             </Grid>
           )}
 
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={10} md={8}>
             <ListItems
               todos={state.todos}
               handleDelete={handleDelete}
